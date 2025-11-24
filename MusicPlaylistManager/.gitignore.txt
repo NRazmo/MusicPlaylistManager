@@ -1,0 +1,5 @@
+MusicPlaylistManager/.vs/
+MusicPlaylistManager/bin/
+MusicPlaylistManager/obj/
+*.user
+*.suo
