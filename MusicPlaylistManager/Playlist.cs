@@ -16,7 +16,10 @@ public class Playlist
     public void AddSong(Song s)
     {
         Node node = new Node(s);
-        if (head == null) head = tail = node;
+        if (head == null)
+        {
+            head = tail = current = node;
+        }
         else
         {
             tail.Next = node;
