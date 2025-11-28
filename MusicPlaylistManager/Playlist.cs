@@ -4,12 +4,11 @@ public class Playlist
 {
     private Node head;
     private Node tail;
-    private Node current;
     private int count;
 
     public Playlist()
     {
-        head = tail = current = null;
+        head = tail = null;
         count = 0;
     }
 
@@ -18,7 +17,7 @@ public class Playlist
         Node node = new Node(s);
         if (head == null)
         {
-            head = tail = current = node;
+            head = tail = node;
         }
         else
         {
@@ -29,6 +28,40 @@ public class Playlist
         count++;
     }
 
+    public void RemoveSong(int index)
+    {
+        if (index < 0 || i >= count)
+        {
+            Console.WriteLine("Invalid index.");
+            return;
+        }
+
+        Node temp = head;
+        int i = 0;
+
+        while (i < index)
+        {
+            temp = temp.Next;
+            i++;
+        }
+        if (temp.Prev != null)
+            temp.Prev.Next = temp.Next;
+        else
+            head = temp.Next;
+
+        if (temp.Prev != null)
+            temp.Prev.Next = temp.Next;
+        else
+            head = temp.Next;
+
+        if (temp.Next != null)
+            temp.Next.Prev = temp.Prev;
+        else
+            tail = temp.Prev;
+        count--;
+        Console.WriteLine("Song removed successfully!")
+    }
+        
     public void PrintAll()
     {
         Node temp = head;
@@ -39,6 +72,28 @@ public class Playlist
             temp = temp.Next;
             i++;
         }
+    }
+
+    public void Search(string keyword)
+    {
+        Node temp = head;
+        int i = 0;
+        bool found = false;
+
+        while (temp != null)
+        {
+            if (temp.Data.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+                temp.Data.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine($"{i}: {temp.Data}");
+                found = true;
+            }
+            temp = temp.Next;
+            i++;
+        }
+        if (!found)
+            Console.WriteLine("No matching songs found");
+
     }
 }
 
