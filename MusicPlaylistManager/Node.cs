@@ -1,15 +1,16 @@
-﻿
-public class Node
+﻿namespace MusicPlaylistManager
 {
-    public Song Data { get; set; }
-    public Node Next { get; set; }
-    public Node Prev { get; set; }
-
-    public Node(Song song)
+    public class Node
     {
-        Data = song;
-        Next = null;
-        Prev = null;
+        public Song Data { get; set; }
+        public Node Next { get; set; }
+        public Node Prev { get; set; }
+
+        public Node(Song song)
+        {
+            Data = song;
+            Next = null;
+            Prev = null;
+        }
     }
 }
-

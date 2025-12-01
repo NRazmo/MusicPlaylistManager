@@ -1,99 +1,97 @@
 ﻿using System;
 
-public class Playlist
+namespace MusicPlaylistManager
 {
-    private Node head;
-    private Node tail;
-    private int count;
-
-    public Playlist()
+    public class Playlist
     {
-        head = tail = null;
-        count = 0;
-    }
+        private Node head;
+        private Node tail;
+        private int count;
 
-    public void AddSong(Song s)
-    {
-        Node node = new Node(s);
-        if (head == null)
+        public Playlist()
         {
-            head = tail = node;
-        }
-        else
-        {
-            tail.Next = node;
-            node.Prev = tail;
-            tail = node;
-        }
-        count++;
-    }
-
-    public void RemoveSong(int index)
-    {
-        if (index < 0 || i >= count)
-        {
-            Console.WriteLine("Invalid index.");
-            return;
+            head = tail = null;
+            count = 0;
         }
 
-        Node temp = head;
-        int i = 0;
-
-        while (i < index)
+        public void AddSong(Song s)
         {
-            temp = temp.Next;
-            i++;
+            Node node = new Node(s);
+            if (head == null)
+            {
+                head = tail = node;
+            }
+            else
+            {
+                tail.Next = node;
+                node.Prev = tail;
+                tail = node;
+            }
+            count++;
         }
-        if (temp.Prev != null)
-            temp.Prev.Next = temp.Next;
-        else
-            head = temp.Next;
 
-        if (temp.Prev != null)
-            temp.Prev.Next = temp.Next;
-        else
-            head = temp.Next;
-
-        if (temp.Next != null)
-            temp.Next.Prev = temp.Prev;
-        else
-            tail = temp.Prev;
-        count--;
-        Console.WriteLine("Song removed successfully!")
-    }
-        
-    public void PrintAll()
-    {
-        Node temp = head;
-        int i = 0;
-        while (temp != null)
+        public void RemoveSong(int index)
         {
-            Console.WriteLine($"{i}: {temp.Data}");
-            temp = temp.Next;
-            i++;
+            if (index < 0 || index >= count)
+            {
+                Console.WriteLine("Invalid index.");
+                return;
+            }
+
+            Node temp = head;
+            int i = 0;
+
+            while (i < index)
+            {
+                temp = temp.Next;
+                i++;
+            }
+            if (temp.Prev != null)
+                temp.Prev.Next = temp.Next;
+            else
+                head = temp.Next;
+
+            if (temp.Next != null)
+                temp.Next.Prev = temp.Prev;
+            else
+                tail = temp.Prev;
+
+            count--;
+            Console.WriteLine("Song removed successfully!");
         }
-    }
 
-    public void Search(string keyword)
-    {
-        Node temp = head;
-        int i = 0;
-        bool found = false;
-
-        while (temp != null)
+        public void PrintAll()
         {
-            if (temp.Data.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                temp.Data.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+            Node temp = head;
+            int i = 0;
+            while (temp != null)
             {
                 Console.WriteLine($"{i}: {temp.Data}");
-                found = true;
+                temp = temp.Next;
+                i++;
             }
-            temp = temp.Next;
-            i++;
         }
-        if (!found)
-            Console.WriteLine("No matching songs found");
 
+        public void Search(string keyword)
+        {
+            Node temp = head;
+            int i = 0;
+            bool found = false;
+
+            while (temp != null)
+            {
+                if (temp.Data.Title.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    temp.Data.Artist.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    Console.WriteLine($"{i}: {temp.Data}");
+                    found = true;
+                }
+                temp = temp.Next;
+                i++;
+            }
+            if (!found)
+                Console.WriteLine("No matching songs found");
+
+        }
     }
 }
-
